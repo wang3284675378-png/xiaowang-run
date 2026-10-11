@@ -1,0 +1,43 @@
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+.htpasswd
+credentials.json
+service-account*.json
+
+# Dependency and build caches
+node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+.cache/
+coverage/
+dist/
+build/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local tools and previews
+.codex/
+.agents/
+work/
