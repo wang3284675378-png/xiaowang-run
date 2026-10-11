@@ -13,6 +13,8 @@ zhi-2/
 │     └─ game-over.jpg         游戏结束图片
 ├─ deploy/nginx/
 │  └─ block-dash.conf          香港服务器 Nginx 配置模板
+├─ .github/workflows/
+│  └─ pages.yml                GitHub Pages 自动发布配置
 ├─ scripts/
 │  ├─ check-site.mjs           发布前完整性检查
 │  └─ serve-production.mjs     带生产安全头的本地预览
@@ -52,22 +54,15 @@ node scripts/serve-production.mjs
 
 不要上传密码、服务器私钥、HTTPS 证书、`.env` 文件、缓存和依赖目录。`.gitignore` 已经排除了这些内容。
 
-GitHub 建议只用来保存代码。正式给抖音粉丝访问的网址建议指向香港服务器，这样访问入口和源码仓库互相独立。
+当前 GitHub 仓库：<https://github.com/wang3284675378-png/xiaowang-run>
 
-## 第一次保存到 GitHub
+当前公开试玩网址：<https://wang3284675378-png.github.io/xiaowang-run/>
 
-先在 GitHub 网站新建一个空仓库，再在本项目根目录执行下面的命令。把示例地址换成自己的仓库地址：
+`main` 分支每次有新提交时，GitHub Actions 会自动把 `outputs` 目录发布到试玩网址。
 
-```bash
-git init
-git add .
-git commit -m "发布方块疾行网页版"
-git branch -M main
-git remote add origin https://github.com/你的用户名/你的仓库名.git
-git push -u origin main
-```
+## GitHub 发布状态
 
-执行最后一条命令才会真正上传。本项目整理过程没有替你执行上传。
+项目已经上传到 `wang3284675378-png/xiaowang-run`，GitHub Pages 和 HTTPS 已启用。发布工作流只上传 `outputs`，不会把源码检查脚本或服务器配置暴露为网站文件。
 
 ## 部署到香港服务器
 
@@ -88,6 +83,17 @@ git push -u origin main
 ## 每次更新游戏
 
 1. 先运行 `node scripts/check-site.mjs`。
-2. 将改动保存到 GitHub。
-3. 重新上传 `outputs` 中发生变化的文件。
-4. 清理浏览器或 CDN 缓存后检查正式网站。
+2. 提交并推送到 GitHub 的 `main` 分支。
+3. 等待仓库 Actions 页面中的 `Deploy GitHub Pages` 显示绿色成功状态。
+4. 打开公开试玩网址并刷新检查。
+
+如果使用普通 Git 克隆目录，更新命令为：
+
+```bash
+node scripts/check-site.mjs
+git add .
+git commit -m "更新游戏"
+git push
+```
+
+正式迁移到香港服务器后，还需要把 `outputs` 中发生变化的文件同步到服务器网站目录。
